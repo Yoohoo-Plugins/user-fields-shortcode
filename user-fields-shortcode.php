@@ -67,7 +67,13 @@ function yh_edd_user_fields_shortcode( $atts ) {
 
     $value = $customer->{$key};
 
-    return esc_html( $value );
+    if ( $key == 'purchase_value' ) {
+        $value = edd_currency_filter( edd_format_amount( $value ) ) . ' <span style="font-size:12px">(<a href="https://yoohooplugins.com/account/purchase-history">View all</a>)</span>';
+    } else {
+        $value = esc_html( $value );
+    }
+
+    return $value;
 
 }
 add_shortcode( 'edd_user_field', 'yh_edd_user_fields_shortcode' );
